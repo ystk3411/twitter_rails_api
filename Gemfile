@@ -40,6 +40,8 @@ gem "rack-cors"
 
 gem "device"
 
+gem "devise_token_auth"
+
 gem "letter_opener_web"
 
 group :development, :test do

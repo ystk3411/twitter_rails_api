@@ -43,12 +43,12 @@ DeviseTokenAuth.setup do |config|
 
   # Makes it possible to change the headers names
   config.headers_names = {
-    :'authorization' => 'Authorization',
-    :'access-token' => 'access-token',
-    :'client' => 'client',
-    :'expiry' => 'expiry',
-    :'uid' => 'uid',
-    :'token-type' => 'token-type'
+    authorization: 'Authorization',
+    'access-token': 'access-token',
+    client: 'client',
+    expiry: 'expiry',
+    uid: 'uid',
+    'token-type': 'token-type'
   }
 
   config.default_confirm_success_url = 'http://localhost:5173'

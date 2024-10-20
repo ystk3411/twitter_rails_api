@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       # resources :tasks
       mount_devise_token_auth_for 'User', at: 'users', controllers: {
-        registrations: "api/v1/users/registrations",
+        registrations: 'api/v1/users/registrations'
       }
     end
   end
@@ -16,5 +16,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  root "tasks#index"
+  root 'tasks#index'
 end

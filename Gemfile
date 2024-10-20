@@ -42,6 +42,8 @@ gem "device"
 
 gem "devise_token_auth"
 
+gem "omniauth"
+
 gem "letter_opener_web"
 
 group :development, :test do

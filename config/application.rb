@@ -34,5 +34,16 @@ module Myapp
                        routing_specs: false
       g.factory_bot false
     end
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+          headers: :any,
+          # expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+          :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+          methods: [:get, :post, :options, :delete, :put]
+      end
+    end
   end
 end

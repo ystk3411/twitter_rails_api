@@ -39,10 +39,10 @@ module Myapp
       allow do
         origins '*'
         resource '*',
-          headers: :any,
-          # expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-          :expose => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
-          methods: [:get, :post, :options, :delete, :put]
+                 headers: :any,
+                 # expose: ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+                 expose: %w[access-token expiry token-type uid client],
+                 methods: %i[get post options delete put]
       end
     end
   end

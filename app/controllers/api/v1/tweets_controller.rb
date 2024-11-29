@@ -3,6 +3,13 @@
 module Api
   module V1
     class TweetsController < ApplicationController
+      def index
+        tweets = Tweet.all
+        current_page = params[:page].nil? ? 0 : params[:page].to_i
+        limited_params = Tweet.limit(10).offset(current_page * 10)
+        render json: tweets
+      end
+
       def create
         tweet = current_api_v1_user.tweets.build(tweet_params)
 
@@ -18,6 +25,14 @@ module Api
         tweet = current_api_v1_user.tweets.find(params[:id])
         tweet.update(tweet_params)
         render json: tweet.image
+      end
+
+      def limit_tweets # rubocop:disable all
+        current_page = params[:page].nil? ? 0 : params[:page].to_i
+        tweets = Tweet.limit(10).offset(current_page * 10)
+        data = tweets.map{ |tweet| {tweet: tweet, user: tweet.user, image: tweet.user.image}}
+        # users = tweets.map{ |tweet| tweet.user}
+        render json: data
       end
 
       private

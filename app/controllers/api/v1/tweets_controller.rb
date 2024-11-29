@@ -6,7 +6,7 @@ module Api
       def index
         tweets = Tweet.all
         current_page = params[:page].nil? ? 0 : params[:page].to_i
-        limited_params = Tweet.limit(10).offset(current_page * 10)
+        Tweet.limit(10).offset(current_page * 10)
         render json: tweets
       end
 
@@ -30,7 +30,7 @@ module Api
       def limit_tweets # rubocop:disable all
         current_page = params[:page].nil? ? 0 : params[:page].to_i
         tweets = Tweet.limit(10).offset(current_page * 10)
-        data = tweets.map{ |tweet| {tweet: tweet, user: tweet.user, image: tweet.user.image}}
+        data = tweets.map { |tweet| { tweet:, user: tweet.user, image: tweet.user.image } }
         # users = tweets.map{ |tweet| tweet.user}
         render json: data
       end

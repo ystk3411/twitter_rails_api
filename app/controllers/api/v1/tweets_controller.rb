@@ -21,6 +21,12 @@ module Api
         # render json: current_api_v1_user
       end
 
+      def show
+        tweet = Tweet.find(params[:id])
+        user = tweet.user
+        render json: {tweet: tweet, user: user}
+      end
+
       def attach_image # rubocop:disable all
         tweet = current_api_v1_user.tweets.find(params[:id])
         tweet.update(tweet_params)

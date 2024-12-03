@@ -10,6 +10,12 @@ module Api
         render json: tweets
       end
 
+      def show
+        tweet = Tweet.find(params[:id])
+        user = tweet.user
+        render json: { tweet:, user: }
+      end
+
       def create
         tweet = current_api_v1_user.tweets.build(tweet_params)
 
@@ -19,12 +25,6 @@ module Api
           render json: tweet.errors, status: :unprocessable_entity
         end
         # render json: current_api_v1_user
-      end
-
-      def show
-        tweet = Tweet.find(params[:id])
-        user = tweet.user
-        render json: {tweet: tweet, user: user}
       end
 
       def attach_image # rubocop:disable all

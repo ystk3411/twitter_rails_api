@@ -4,11 +4,11 @@ module Api
   module V1
     class TweetsController < ApplicationController
       def index
-        tweets = Tweet.all
+        count = Tweet.all.length
         current_page = params[:page].nil? ? 0 : params[:page].to_i
         tweets_limit = Tweet.limit(10).offset(current_page * 10).preload(:user)
-        data = tweets_limit.map { |tweet| { tweet:, user: tweet.user, image: tweet.user.image } }
-        render json: {tweets: , tweets_limit: data}
+        tweets = tweets_limit.map { |tweet| { tweet:, user: tweet.user, image: tweet.user.image } }
+        render json: {count: , tweets: }
       end
 
       def show

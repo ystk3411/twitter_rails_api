@@ -11,6 +11,12 @@ module Api
         render json: {count: , tweets: }
       end
 
+      def show
+        tweet = Tweet.find(params[:id])
+        user = tweet.user
+        render json: { tweet:, user: }
+      end
+
       def create
         tweet = current_api_v1_user.tweets.build(tweet_params)
 

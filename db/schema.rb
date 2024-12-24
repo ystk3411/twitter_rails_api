@@ -54,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_19_094822) do
     t.text "content"
     t.bigint "user_id", null: false
     t.integer "comment_id"
+    t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_tweets_on_user_id"

@@ -4,10 +4,11 @@ module Api
   module V1
     class TweetsController < ApplicationController
       def index
-        tweets = Tweet.all
+        count = Tweet.all.length
         current_page = params[:page].nil? ? 0 : params[:page].to_i
-        Tweet.limit(10).offset(current_page * 10)
-        render json: tweets
+        tweets_limit = Tweet.limit(10).offset(current_page * 10).preload(:user)
+        tweets = tweets_limit.map { |tweet| { tweet:, user: tweet.user, image: tweet.user.image } }
+        render json: {count: , tweets: }
       end
 
       def show
@@ -30,6 +31,7 @@ module Api
       def attach_image # rubocop:disable all
         tweet = current_api_v1_user.tweets.find(params[:id])
         tweet.update(tweet_params)
+        tweet.update(image_url: url_for(tweet.image))
         render json: tweet.image
       end
 
@@ -44,7 +46,7 @@ module Api
       private
 
       def tweet_params
-        params.require(:tweet).permit(:content, :image)
+        params.require(:tweet).permit(:content, :image, :image_url)
       end
     end
   end

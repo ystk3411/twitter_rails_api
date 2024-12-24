@@ -3,12 +3,14 @@
 module Api
   module V1
     class TweetsController < ApplicationController
-      def index
+      def index # rubocop:disable Metrics/AbcSize
         count = Tweet.all.length
         current_page = params[:page].nil? ? 0 : params[:page].to_i
         tweets_limit = Tweet.limit(10).offset(current_page * 10).preload(:user)
-        tweets = tweets_limit.map { |tweet| { tweet:, user: tweet.user, image: tweet.user.image } }
-        render json: {count: , tweets: }
+        tweets = tweets_limit.map do |tweet|
+          { tweet:, user: tweet.user, image: tweet.user.image }
+        end
+        render json: { count:, tweets: }
       end
 
       def show

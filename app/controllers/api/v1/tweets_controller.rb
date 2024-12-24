@@ -11,7 +11,6 @@ module Api
           { tweet:, user: tweet.user, image: tweet.user.image }
         end
         render json: { count:, tweets: }
-      end
 
       def show
         tweet = Tweet.find(params[:id])
@@ -35,14 +34,6 @@ module Api
         tweet.update(tweet_params)
         tweet.update(image_url: url_for(tweet.image))
         render json: tweet.image
-      end
-
-      def limit_tweets # rubocop:disable all
-        current_page = params[:page].nil? ? 0 : params[:page].to_i
-        tweets = Tweet.limit(10).offset(current_page * 10)
-        data = tweets.map { |tweet| { tweet:, user: tweet.user, image: tweet.user.image } }
-        # users = tweets.map{ |tweet| tweet.user}
-        render json: data
       end
 
       private

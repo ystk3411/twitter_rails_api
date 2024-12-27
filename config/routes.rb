@@ -6,6 +6,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :tweets
       post 'image', to: 'tweets#attach_image'
+      post 'limit_tweets', to: 'tweets#limit_tweets'
+      get 'user/:id', to: 'users#show'
+      put 'profile', to: 'users#update'
+      # resources :users, only: [:show, :update]
       mount_devise_token_auth_for 'User', at: 'users', controllers: {
         registrations: 'api/v1/users/registrations'
       }

@@ -18,9 +18,8 @@ module Api
       def show
         tweet = Tweet.find(params[:id])
         user = tweet.user
-        image_urls = {}
         user_image = url_for(user.thumbnail) if user.thumbnail.attached?
-        render json: { tweet:, user: , user_image: }
+        render json: { tweet:, user:, user_image: }
       end
 
       def create
@@ -48,7 +47,6 @@ module Api
       end
 
       def comments # rubocop:disable all
-        p params
         tweet = current_api_v1_user.tweets.build(tweet_params)
         tweet.comment_id = params[:tweet_id] if params[:tweet_id]
 

@@ -8,9 +8,12 @@ module Api
         current_page = params[:page].nil? ? 0 : params[:page].to_i
         tweets_limit = Tweet.limit(10).offset(current_page * 10).preload(:user)
         tweets = tweets_limit.map do |tweet|
-          { tweet:, user: tweet.user, image: tweet.user.image }
+          image = url_for(tweet.user.thumbnail) if tweet.user.thumbnail.attached?
+          { tweet:, user: tweet.user, image: }
         end
-        render json: { count:, tweets: }
+        user_image = url_for(current_api_v1_user.thumbnail) if current_api_v1_user.thumbnail.attached?
+        render json: { count:, tweets:, user_image: }
+      end
 
       def show
         tweet = Tweet.find(params[:id])
@@ -27,6 +30,12 @@ module Api
           render json: tweet.errors, status: :unprocessable_entity
         end
         # render json: current_api_v1_user
+      end
+
+      def destroy
+        tweet = Tweet.find(params[:id])
+        tweet.destroy
+        render json: tweet
       end
 
       def attach_image # rubocop:disable all

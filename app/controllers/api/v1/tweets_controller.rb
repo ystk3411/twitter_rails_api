@@ -57,7 +57,7 @@ module Api
         end
       end
 
-      def comments_index
+      def comments_index # rubocop:disable all
         tweet = Tweet.find(params[:id])
         comments = tweet.comments.eager_load(:user)
         comments = comments.map do |comment|

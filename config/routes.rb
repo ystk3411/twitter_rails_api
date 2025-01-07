@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post 'image', to: 'tweets#attach_image'
       post 'limit_tweets', to: 'tweets#limit_tweets'
       post 'comments', to: 'tweets#comments'
+      get 'tweets/:tweet_id/comments', to: 'tweets#comments_index'
       get 'user/:id', to: 'users#show'
       put 'profile', to: 'users#update'
       # resources :users, only: [:show, :update]

@@ -3,13 +3,13 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      def show
+      def show # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         user = User.find(params[:id])
         tweets = user.tweets.eager_load(user: { thumbnail_attachment: :blob }).preload(:retweets)
         tweets = tweets.map do |tweet|
-          retweetId = tweet.retweet_id(current_api_v1_user)
+          retweet_id = tweet.get_retweet_id(current_api_v1_user)
           count_retweet = tweet.retweets.count
-          { tweet:, retweetId:, count_retweet: }
+          { tweet:, retweet_id:, count_retweet: }
         end
         image_urls = {}
         image_urls[:header] = url_for(user.header) if user.header.attached?

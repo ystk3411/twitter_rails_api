@@ -8,10 +8,10 @@ class Tweet < ApplicationRecord
   has_many :retweets, dependent: :destroy
 
   def retweeted_by?(user)
-    retweets.where(user_id: user.id).exists?
+    retweets.exists?(user_id: user.id)
   end
 
-  def retweet_id(user)
-    retweets.where(user_id: user.id)[0].id if retweets.where(user_id: user.id).exists?
+  def get_retweet_id(user)
+    retweets.where(user_id: user.id)[0].id if retweets.exists?(user_id: user.id)
   end
 end

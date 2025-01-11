@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       post 'comments', to: 'tweets#comments'
       get 'user/:id', to: 'users#show'
       put 'profile', to: 'users#update'
-      # resources :users, only: [:show, :update]
+      resources :comments, only: :index
       mount_devise_token_auth_for 'User', at: 'users', controllers: {
         registrations: 'api/v1/users/registrations'
       }

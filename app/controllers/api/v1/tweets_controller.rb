@@ -9,8 +9,6 @@ module Api
         tweets_limit = Tweet.limit(10).offset(current_page * 10).preload(:user, :retweets)
         tweets = tweets_limit.map do |tweet|
           image = url_for(tweet.user.thumbnail) if tweet.user.thumbnail.attached?
-          retweet_id = tweet.get_retweet_id(current_api_v1_user)
-          count_retweet = tweet.retweets.count
           datas = tweet.as_json_with_details(current_api_v1_user)
           datas["image"] = image
           datas

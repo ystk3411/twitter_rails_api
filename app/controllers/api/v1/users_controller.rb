@@ -7,9 +7,8 @@ module Api
         user = User.find(params[:id])
         tweets = user.tweets.eager_load(user: { thumbnail_attachment: :blob }).preload(:retweets)
         tweets = tweets.map do |tweet|
-          retweet_id = tweet.get_retweet_id(current_api_v1_user)
-          count_retweet = tweet.retweets.count
-          { tweet:, retweet_id:, user:, count_retweet: }
+          datas = tweet.as_json_with_details(current_api_v1_user)
+          datas
         end
         image_urls = {}
         image_urls[:header] = url_for(user.header) if user.header.attached?

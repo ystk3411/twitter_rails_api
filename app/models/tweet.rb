@@ -25,7 +25,7 @@ class Tweet < ApplicationRecord
       tweet: self,
       retweet_id: get_retweet_id(current_user),
       favorite_id: get_favorite_id(current_user),
-      user: user,
+      user:,
       count_retweet: retweets.count,
       count_favorite: favorites.count
     }

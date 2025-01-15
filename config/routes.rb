@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :tweets do
         resources :retweets
+        resources :favorites
       end
       post 'image', to: 'tweets#attach_image'
       post 'limit_tweets', to: 'tweets#limit_tweets'

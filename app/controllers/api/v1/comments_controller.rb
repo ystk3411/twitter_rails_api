@@ -10,7 +10,8 @@ module Api
           thumbnail = url_for(comment.user.thumbnail) if comment.user.thumbnail.attached?
           retweet_id = comment.get_retweet_id(current_api_v1_user)
           count_retweet = comment.retweets.count
-          { comment:, user: comment.user, thumbnail:, retweet_id:, count_retweet: }
+          count_favorite = comment.favorites.count
+          { comment:, user: comment.user, thumbnail:, retweet_id:, count_retweet:, count_favorite: }
         end
         render json: comments
       end

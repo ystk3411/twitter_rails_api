@@ -3,7 +3,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
-      def show # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      def show # rubocop:disable Metrics/AbcSize
         user = User.find(params[:id])
         tweets = user.tweets.eager_load(user: { thumbnail_attachment: :blob }).preload(:retweets)
         tweets = tweets.map do |tweet|

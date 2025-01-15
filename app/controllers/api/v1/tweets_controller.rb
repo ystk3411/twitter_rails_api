@@ -3,13 +3,15 @@
 module Api
   module V1
     class TweetsController < ApplicationController
-      def index # rubocop:disable Metrics/AbcSize
+      def index # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
         count = Tweet.all.length
         current_page = params[:page].nil? ? 0 : params[:page].to_i
-        tweets_limit = Tweet.limit(10).offset(current_page * 10).preload(:user)
+        tweets_limit = Tweet.limit(10).offset(current_page * 10).preload(:user, :retweets)
         tweets = tweets_limit.map do |tweet|
           image = url_for(tweet.user.thumbnail) if tweet.user.thumbnail.attached?
-          { tweet:, user: tweet.user, image: }
+          datas = tweet.as_json_with_details(current_api_v1_user)
+          datas["image"] = image
+          datas
         end
         user_image = url_for(current_api_v1_user.thumbnail) if current_api_v1_user.thumbnail.attached?
         render json: { count:, tweets:, user_image: }

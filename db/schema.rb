@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_19_094822) do
+ActiveRecord::Schema[7.0].define(version: 2025_01_11_093441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,6 +40,16 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_19_094822) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "retweets", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "tweet_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tweet_id"], name: "index_retweets_on_tweet_id"
+    t.index ["user_id", "tweet_id"], name: "index_retweets_on_user_id_and_tweet_id", unique: true
+    t.index ["user_id"], name: "index_retweets_on_user_id"
   end
 
   create_table "tasks", force: :cascade do |t|

@@ -4,13 +4,16 @@ Rails.application.routes.draw do
   # mount_devise_token_auth_for 'User', at: 'auth'
   namespace :api do
     namespace :v1 do
-      resources :tweets
+      resources :tweets do
+        resources :retweets
+      end
       post 'image', to: 'tweets#attach_image'
       post 'limit_tweets', to: 'tweets#limit_tweets'
       post 'comments', to: 'tweets#comments'
       get 'user/:id', to: 'users#show'
       put 'profile', to: 'users#update'
       resources :comments, only: :index
+
       mount_devise_token_auth_for 'User', at: 'users', controllers: {
         registrations: 'api/v1/users/registrations'
       }

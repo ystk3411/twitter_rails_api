@@ -11,7 +11,9 @@ module Api
           image = url_for(tweet.user.thumbnail) if tweet.user.thumbnail.attached?
           retweet_id = tweet.get_retweet_id(current_api_v1_user)
           count_retweet = tweet.retweets.count
-          { tweet:, user: tweet.user, image:, retweet_id:, count_retweet: }
+          datas = tweet.as_json_with_details(current_api_v1_user)
+          datas["image"] = image
+          datas
         end
         user_image = url_for(current_api_v1_user.thumbnail) if current_api_v1_user.thumbnail.attached?
         render json: { count:, tweets:, user_image: }

@@ -12,6 +12,15 @@ class Tweet < ApplicationRecord
   end
 
   def get_retweet_id(user)
-    retweets.where(user_id: user.id)[0].id if retweets.exists?(user_id: user.id)
+    retweets.find_by(user_id: user.id)&.id
+  end
+
+  def as_json_with_details(user)
+    {
+      tweet: self,
+      retweet_id: get_retweet_id(user),
+      user: user,
+      count_retweet: retweets.count
+    }
   end
 end

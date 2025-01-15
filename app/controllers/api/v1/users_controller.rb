@@ -9,7 +9,7 @@ module Api
         tweets = tweets.map do |tweet|
           retweet_id = tweet.get_retweet_id(current_api_v1_user)
           count_retweet = tweet.retweets.count
-          { tweet:, retweet_id:, count_retweet: }
+          { tweet:, retweet_id:, user:, count_retweet: }
         end
         image_urls = {}
         image_urls[:header] = url_for(user.header) if user.header.attached?

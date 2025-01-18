@@ -5,7 +5,7 @@ module Api
     class FavoritesController < ApplicationController
       def create
         tweet = Tweet.find(params[:tweet_id])
-        favorite = current_api_v1_user.favorites.build(tweet: tweet)
+        favorite = current_api_v1_user.favorites.build(tweet:)
         favorite.tweet_id = params[:tweet_id]
         favorite.save
         count_favorites = tweet.favorites.count

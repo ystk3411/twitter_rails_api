@@ -10,7 +10,7 @@ module Api
         tweets = tweets_limit.map do |tweet|
           image = url_for(tweet.user.thumbnail) if tweet.user.thumbnail.attached?
           datas = tweet.as_json_with_details(current_api_v1_user)
-          datas["image"] = image
+          datas['image'] = image
           datas
         end
         user_image = url_for(current_api_v1_user.thumbnail) if current_api_v1_user.thumbnail.attached?

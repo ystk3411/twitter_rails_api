@@ -14,7 +14,9 @@ module Api
         image_urls[:header] = url_for(user.header) if user.header.attached?
         image_urls[:thumbnail] = url_for(user.thumbnail) if user.thumbnail.attached?
         is_follow = true if current_api_v1_user.active_relationships.find_by(followed_id: params[:id])
-        render json: { user:, tweets:, image_urls:, is_follow: }
+        count_follow = user.active_relationships.count
+        count_followers = user.passive_relationships.count
+        render json: { user:, tweets:, image_urls:, is_follow:, count_follow:, count_followers: }
       end
 
       def update

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Notification < ApplicationRecord
   belongs_to :tweet, optional: true
   belongs_to :comment, class_name: 'Tweet', optional: true

@@ -34,7 +34,7 @@ class Tweet < ApplicationRecord
   end
 
   def notification_create_invalid?
-    p User.find(user_id).id == visited_id || comment_id.nil?
+    Rails.logger.debug User.find(user_id).id == visited_id || comment_id.nil?
     User.find(user_id).id == visited_id || comment_id.nil?
   end
 

@@ -8,6 +8,11 @@ Rails.application.routes.draw do
         resources :retweets
         resources :favorites
       end
+
+      resources :users do
+        post 'follow', to: 'relationships#create'
+        delete 'unfollow', to: 'relationships#destroy'
+      end
       post 'image', to: 'tweets#attach_image'
       post 'limit_tweets', to: 'tweets#limit_tweets'
       post 'comments', to: 'tweets#comments'

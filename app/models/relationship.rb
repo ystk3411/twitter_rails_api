@@ -6,7 +6,7 @@ class Relationship < ApplicationRecord
   belongs_to :followed, class_name: 'User'
 
   def notification_create_invalid?
-    User.find(follower_id).id == visited_id
+    follower_id == visited_id
   end
 
   def visited_id

@@ -6,7 +6,7 @@ class Favorite < ApplicationRecord
   belongs_to :tweet
 
   def notification_create_invalid?
-    User.find(user_id).id == visited_id
+    user_id == visited_id
   end
 
   def visited_id

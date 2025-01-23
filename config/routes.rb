@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       get 'user/:id', to: 'users#show'
       put 'profile', to: 'users#update'
       resources :comments, only: :index
+      resources :notifications, only: :index
 
       mount_devise_token_auth_for 'User', at: 'users', controllers: {
         registrations: 'api/v1/users/registrations'

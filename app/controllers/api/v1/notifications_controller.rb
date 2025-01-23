@@ -9,8 +9,8 @@ module Api
           datas = {}
           image = url_for(notification.visitor.thumbnail) if notification.visitor.thumbnail.attached?
           datas['notification'] = notification
-          datas['user'] = User.find(notification.visitor_id) if notification.visitor_id.present?
-          datas['tweet'] = Tweet.find(notification.tweet_id) if notification.tweet_id.present?
+          datas['user'] = notification.visitor if notification.visitor_id.present?
+          datas['tweet'] = notification.tweet if notification.tweet_id.present?
           datas['image'] = image
           datas
         end

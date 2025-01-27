@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-Rails.application.routes.draw do
+Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # mount_devise_token_auth_for 'User', at: 'auth'
-  namespace :api do
+  namespace :api do # rubocop:disable Metrics/BlockLength
     namespace :v1 do
       resources :tweets do
         resources :retweets

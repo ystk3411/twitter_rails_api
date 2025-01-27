@@ -18,8 +18,15 @@ Rails.application.routes.draw do
       post 'comments', to: 'tweets#comments'
       get 'user/:id', to: 'users#show'
       put 'profile', to: 'users#update'
+      post 'groups', to: 'rooms#create'
+      post 'groups/:group_id/messages', to: 'messages#create'
+      post 'messages_image', to: 'messages#attach_image'
+      get ':group_id/messages', to: 'messages#show'
+      get 'groups', to: 'messages#index'
       resources :comments, only: :index
       resources :notifications, only: :index
+      resources :messages, only: %w[index create show]
+      resources :rooms, only: %w[create]
 
       mount_devise_token_auth_for 'User', at: 'users', controllers: {
         registrations: 'api/v1/users/registrations'

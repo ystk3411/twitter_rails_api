@@ -65,6 +65,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_23_075011) do
     t.bigint "user_id", null: false
     t.bigint "room_id", null: false
     t.text "content"
+    t.string "image_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["room_id"], name: "index_messages_on_room_id"

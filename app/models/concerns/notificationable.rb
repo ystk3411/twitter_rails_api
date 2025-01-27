@@ -39,4 +39,8 @@ module Notificationable
     notification.checked = true if notification.visitor_id == notification.visited_id
     notification.save if notification.valid?
   end
+
+  def visited_id
+    raise NotImplementedError, "You must implement #{self.class}##{__method__}"
+  end
 end

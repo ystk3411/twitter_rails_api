@@ -6,7 +6,7 @@ module Api
       def index # rubocop:disable Metrics/AbcSize
         my_room_ids = current_api_v1_user.entries.pluck(:room_id)
 
-        another_entries = Entry.preload(:user).where(room_id: my_room_ids).where.not(user_id: current_api_v1_user.id)
+        another_entries = Entry.get_another_entries(my_room_ids, current_api_v1_user)
 
         entries_info = another_entries.map do |entry|
           data = {}
@@ -49,9 +49,8 @@ module Api
       end
 
       def create
-        Rails.logger.debug params[:image]
-        message = Message.create!(user_id: current_api_v1_user.id, room_id: params[:group_id],
-                                  content: params[:content])
+        message = current_api_v1_user.messages.create(room_id: params[:group_id],
+                                                      content: params[:content])
         render json: message
       end
 

@@ -9,7 +9,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
         resources :favorites
       end
 
-      resources :users do
+      resources :users, only: %w[show] do
         post 'follow', to: 'relationships#create'
         delete 'unfollow', to: 'relationships#destroy'
       end

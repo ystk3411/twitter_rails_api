@@ -27,6 +27,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :notifications, only: :index
       resources :messages, only: %w[index create show]
       resources :rooms, only: %w[create]
+      resources :bookmarks, only: %w[index create destroy]
 
       mount_devise_token_auth_for 'User', at: 'users', controllers: {
         registrations: 'api/v1/users/registrations'

@@ -1,7 +1,14 @@
 class Api::V1::BookmarksController < ApplicationController
   def index
     bookmarks = current_api_v1_user.bookmarks.eager_load(:user, :tweet)
-    render json: bookmarks
+    tweets = bookmarks.map do |bookmark|
+      image = url_for(bookmark.tweet.user.thumbnail) if bookmark.tweet.user.thumbnail.attached?
+      datas = bookmark.tweet.as_json_with_details(current_api_v1_user)
+      datas['image'] = image
+      datas
+    end
+    user_image = url_for(current_api_v1_user.thumbnail) if current_api_v1_user.thumbnail.attached?
+    render json: { tweets:, user_image: }
   end
 
   def create

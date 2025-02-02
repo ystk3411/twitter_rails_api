@@ -3,7 +3,7 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # mount_devise_token_auth_for 'User', at: 'auth'
   namespace :api do # rubocop:disable Metrics/BlockLength
-    namespace :v1 do
+    namespace :v1 do # rubocop:disable Metrics/BlockLength
       resources :tweets do
         resources :retweets
         resources :favorites

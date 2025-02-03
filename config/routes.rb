@@ -3,13 +3,13 @@
 Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
   # mount_devise_token_auth_for 'User', at: 'auth'
   namespace :api do # rubocop:disable Metrics/BlockLength
-    namespace :v1 do
+    namespace :v1 do # rubocop:disable Metrics/BlockLength
       resources :tweets do
         resources :retweets
         resources :favorites
       end
 
-      resources :users do
+      resources :users, only: %w[show] do
         post 'follow', to: 'relationships#create'
         delete 'unfollow', to: 'relationships#destroy'
       end
@@ -27,6 +27,7 @@ Rails.application.routes.draw do # rubocop:disable Metrics/BlockLength
       resources :notifications, only: :index
       resources :messages, only: %w[index create show]
       resources :rooms, only: %w[create]
+      resources :bookmarks, only: %w[index create destroy]
 
       mount_devise_token_auth_for 'User', at: 'users', controllers: {
         registrations: 'api/v1/users/registrations'

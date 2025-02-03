@@ -20,7 +20,6 @@ module Api
       end
 
       def update
-        Rails.logger.debug params
         current_api_v1_user.update(user_params)
       end
 

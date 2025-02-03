@@ -9,6 +9,7 @@ class Tweet < ApplicationRecord
   has_many :retweets, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :bookmarks, dependent: :destroy
 
   def retweeted_by?(user)
     retweets.exists?(user_id: user.id)
@@ -22,11 +23,16 @@ class Tweet < ApplicationRecord
     favorites.find_by(user_id: user.id)&.id
   end
 
+  def get_bookmark_id(user)
+    bookmarks.find_by(user_id: user.id)&.id
+  end
+
   def as_json_with_details(current_user)
     {
       tweet: self,
       retweet_id: get_retweet_id(current_user),
       favorite_id: get_favorite_id(current_user),
+      bookmark_id: get_bookmark_id(current_user),
       user:,
       count_retweet: retweets.count,
       count_favorite: favorites.count
